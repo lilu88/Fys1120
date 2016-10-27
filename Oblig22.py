@@ -8,7 +8,7 @@ from pylab import*
 from mpl_toolkits.mplot3d import Axes3D
 
 
-dt = 1000e-15             #str. på tidsteg
+dt = 1000e-15             #str. paa tidsteg
 t_tot = 300e-9          #total tid
 n = t_tot/dt;           #antall tidssteg
 

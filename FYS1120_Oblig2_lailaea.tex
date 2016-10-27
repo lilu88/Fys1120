@@ -5,8 +5,25 @@
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{bm}
+\usepackage{titling}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{listings}
 
-\title{\vspace{-4.0cm} \textbf{Obligatorisk innlevering 1, FYS1120-Elektromagnetisme}}
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+\title{\vspace{-4.0cm} \textbf{Obligatorisk innlevering 2, FYS1120-Elektromagnetisme}}
 \author{Av: Laila Andersland}
 
 \begin{document}
@@ -27,18 +44,23 @@ $$ x(t_i + \Delta t) \simeq x(t_i) + v(t_i + \Delta t) \Delta t $$
 
 \vspace{5mm}
 
-Bruker python for å løse oppgaven numerisk. Setter først opp konstantene for ladningen og massen til elektronet. Så har vi fått oppgitt initialbetingelsene ved $ t = 0 s$, da er posisjonen i origo, $ \textbf{r}(t=0) = (0,0,0) $, og startshastigheten går kun i positiv x-retning, $ \textbf{v}(t=0) = (10 000 m/s,0,0) $
+For å finne akselerasjonen må vi bruke sammenhengen: 
+$$ \textbf{F}_{B} = q ( \textbf{v} \times \textbf{B} ) $$
 
-For å finne akselerasjonen må vi bruke sammenhengen: $ \textbf{F}_{B} = q ( \textbf{v} \times \textbf{B} ) $, hvor vi har alle verdier og kan finne akselesjonenen med $ a = \frac{F}{m_e} $. 
+hvor vi har alle verdier og kan finne akselesjonenen med $ a = \frac{F}{m_e} $. 
+
+Bruker python for å løse oppgaven numerisk. 
 
 \vspace{5mm}
 
 Implementerer den numeriske metoden i python og får følgende plot:
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{oppgave21.png}
-  \caption{Plot av bevegelsen til elektronet i x,y,z-retning når plassert i et magnetisk felt, .}
+\begin{center}
+  \includegraphics[width=100mm]{oppgave21.png}
+  \caption{Plot av bevegelsen til elektronet i x,y,z-retning når plassert i et magnetisk felt.}
   \label{fig:plot1}
+  \end{center}
 \end{figure}
 
 Figur \ref{fig:plot1} viser at elekronet beveger seg i sirkler i x og y retning for økende tid, t, mens den ikke beveger seg i z-retning. Dette er fordi det magnetiske feltet, som oppgitt i oppgaven kun virket i z-retning, og startsfarten var kun i x retning. Kryssproduktet av disse to gir en akselerasjon i y retning. Elektronet har allerede en fart i x-retning som gir bevegelsen i den retningen, mens z hadde verken en startsfart, eller akselerasjon blir påvirket av det magnetiske feltet. 
@@ -93,7 +115,7 @@ $$ R = \dfrac{m v}{q B} $$
 
 Bruker $ v = R \omega $ for å finne vinkelfarten:
 
-$$ \omega = v \dfrac{v}{R} = v \dfrac{v}{{m v}/{q B}} =\dfrac{q B}{m} $$
+$$ \omega =  \dfrac{v}{R} =  \dfrac{v}{{m v}/{q B}} =\dfrac{q B}{m} $$
 
 Vinkelfrekvens: $\omega = \dfrac{2 \pi}{T}$
 
@@ -148,15 +170,66 @@ Endrer initalhastigheten til $ \textbf{v}(t=0) = (5 000 m/s,0,200 m/s) $ :
 
 Protonet har tilslutt en fart:  0.00297299911267
 
+\hspace{1cm}
+
 \textbf{Oppgave 3d}
 
+For å finne den kinetiske energien bruker jeg:
 
+
+\begin{equation}
+\label{eq:kinetic}
+{ E_k = \dfrac{1}{2} m v^2 }
+\end{equation}
+
+Bruker så uttrykket jeg fant for radiusen banen i et sirkulært 
+
+magnetfelt:
+
+$$ R = \dfrac{m v}{q B} $$ 
+
+Løser for farten:
+
+\begin{equation}
+\label{eq:speed}
+{v = \dfrac{R q B}{m}} 
+\end{equation}
+
+
+Setter så (\ref{eq:speed}) inn i (\ref{eq:kinetic}):
+
+\begin{equation}
+\label{eq:Ek}
+{ E_k = \dfrac{1}{2} m v^2 } =  \dfrac{1}{2} m (\dfrac{q r B}{m})^2  =  \dfrac{1}{2} \dfrac{q^2 r^2 B^2}{m} 
+\end{equation}
+
+\hspace{1cm}
+
+\textbf{Oppgave 3e}
+
+Siden vi vet godt hva vi er ute etter her velger jeg å bruke søkemotoren Scopus for å finne $r_D$ og B. I søkefeltet: , krysser av for vitenskapelige artikler og får:
+
+
+Her brukes en calley gap, $r_D = 1.47 m$  og Magnetic field range $2.0–4.5 T$ med en Avg. magnetic field range $2.303–3.36 T$
+
+Stokker om på (\ref{eq:Ek}) slik at vi får et uttrykk for massen:
+
+
+Setter inn for parametrene funnet i artikkelen [].
+
+
+
+\hspace{1cm}
+
+\lstinputlisting{Oblig22.py}
+
+\hspace{1cm}
 
 \textbf{Oppgave 4}
 
 Gauss lov:
 
-$$ \oint \textbf{E} \times d \textbf{A} = \dfrac{Q}{\epsilon_0}$$
+$$ \Phi_E = \oint \textbf{E} \times d \textbf{A} = \dfrac{Q}{\epsilon_0}$$
 
 \textbf{Oppgave 4a}
 
